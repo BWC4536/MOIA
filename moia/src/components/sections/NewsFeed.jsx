@@ -1,5 +1,8 @@
+import { ArrowRight } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import { useSupabase } from '../../hooks/useSupabase'
-import { NewsItem } from '../ui/NewsItem'
+import { NewsCard } from '../ui/NewsCard'
+import { HorizontalScroll } from '../ui/HorizontalScroll'
 
 export function NewsFeed({ etiquetaFilter }) {
   const where = { tipo: 'noticia' }
@@ -15,8 +18,17 @@ export function NewsFeed({ etiquetaFilter }) {
 
   return (
     <section>
-      <div className="mb-8">
-        <h2 className="text-3xl font-black tracking-tighter text-on-surface">Noticias IA Recientes</h2>
+      <div className="flex justify-between items-end mb-8">
+        <div>
+          <h2 className="text-3xl font-black tracking-tighter text-on-surface">Noticias IA Recientes</h2>
+          <p className="text-on-surface-variant text-sm mt-2">Lo más relevante del ecosistema esta semana.</p>
+        </div>
+        <Link
+          to="/noticias"
+          className="text-xs font-bold uppercase tracking-widest text-violet-400 flex items-center gap-2
+                     hover:gap-3 transition-all">
+          Ver Todo <ArrowRight size={11} />
+        </Link>
       </div>
 
       {loading && (
@@ -33,11 +45,13 @@ export function NewsFeed({ etiquetaFilter }) {
         </div>
       )}
       {!loading && !error && data.length > 0 && (
-        <div className="space-y-4">
+        <HorizontalScroll>
           {data.map((item, i) => (
-            <NewsItem key={item.id} item={item} index={i} />
+            <div key={item.id} className="min-w-[340px] flex-shrink-0">
+              <NewsCard item={item} index={i} />
+            </div>
           ))}
-        </div>
+        </HorizontalScroll>
       )}
     </section>
   )

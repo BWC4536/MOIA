@@ -4,10 +4,11 @@ import { TopBar }             from '../components/layout/TopBar'
 import { Footer }             from '../components/layout/Footer'
 import { Hero }               from '../components/sections/Hero'
 import { FilterPills }        from '../components/ui/FilterPills'
-import { FeaturedProjects }   from '../components/sections/FeaturedProjects'
+import { ToolsSection }       from '../components/sections/ToolsSection'
 import { AIWebsitesBento }    from '../components/sections/AIWebsitesBento'
 import { NewsFeed }           from '../components/sections/NewsFeed'
 import { PromptsGallery }     from '../components/sections/PromptsGallery'
+import { ChallengesSection }  from '../components/sections/ChallengesSection'
 import { CommunityRequests }  from '../components/sections/CommunityRequests'
 
 export function Home() {
@@ -26,10 +27,11 @@ export function Home() {
           <FilterPills active={activeFilter} onChange={setActiveFilter} />
 
           <div className="px-12 py-12 space-y-24">
-            <FeaturedProjects  etiquetaFilter={activeFilter} />
-            <AIWebsitesBento   etiquetaFilter={activeFilter} />
-            <NewsFeed          etiquetaFilter={activeFilter} />
-            <PromptsGallery    etiquetaFilter={activeFilter} />
+            <ToolsSection        etiquetaFilter={activeFilter} />
+            <AIWebsitesBento     etiquetaFilter={activeFilter} />
+            <NewsFeed            etiquetaFilter={activeFilter} />
+            <ChallengesSection   etiquetaFilter={activeFilter} />
+            <PromptsGallery      etiquetaFilter={activeFilter} />
             <CommunityRequests />
           </div>
         </main>
