@@ -1,39 +1,54 @@
 import { motion } from 'framer-motion'
 import { Bookmark, AtSign, Calendar } from 'lucide-react'
+import { GlossOverlay } from './GlossOverlay'
 
 const PLACEHOLDER = '/images/placeholders/tool-default.webp'
 
-/** Tarjeta rica para tipo: 'noticia' */
+const cardVariants = {
+  rest:  { y: 0 },
+  hover: { y: -4, transition: { duration: 0.2 } },
+}
+
+const imgVariants = {
+  rest:  { scale: 1,    transition: { duration: 0.3 } },
+  hover: { scale: 1.07, transition: { duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94] } },
+}
+
+/** Tarjeta rica para tipo: 'noticia' — altura fija para alineación perfecta en carrusel */
 export function NewsCard({ item, index }) {
   const { titulo, descripcion, imagen_url, url, created_at, metadatos = {} } = item
   const { menciones = [], imagenes = [] } = metadatos
 
   const date = created_at
-    ? new Date(created_at).toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' })
+    ? new Date(created_at).toLocaleDateString('es-ES', {
+        day: 'numeric', month: 'short', year: 'numeric',
+      })
     : ''
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 16 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: index * 0.08, ease: 'easeOut' }}
-      className="bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-2xl overflow-hidden group
+      variants={cardVariants}
+      initial="rest"
+      animate="rest"
+      whileHover="hover"
+      whileTap={{ scale: 0.97 }}
+      transition={{ duration: 0.4, delay: index * 0.05 }}
+      className="h-[440px] w-[340px] flex flex-col bg-white/[0.03] backdrop-blur-md
+                 border border-white/10 rounded-2xl overflow-hidden
                  hover:border-white/20 transition-colors"
     >
-      {/* Portada con zoom Framer Motion */}
-      <div className="h-52 overflow-hidden relative">
+      {/* Portada con zoom + gloss */}
+      <div className="h-52 shrink-0 overflow-hidden relative">
         <motion.img
           src={imagen_url || PLACEHOLDER}
           alt={titulo}
           className="w-full h-full object-cover"
-          whileHover={{ scale: 1.07 }}
-          transition={{ duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94] }}
+          variants={imgVariants}
           onError={(e) => { e.target.src = PLACEHOLDER }}
         />
-        {/* Gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/80 to-transparent pointer-events-none" />
+        <GlossOverlay />
 
-        {/* Fecha flotante */}
         {date && (
           <div className="absolute bottom-3 left-4 flex items-center gap-1.5 text-[10px]
                           uppercase tracking-widest text-zinc-400 font-medium">
@@ -43,31 +58,32 @@ export function NewsCard({ item, index }) {
         )}
       </div>
 
-      <div className="p-5">
+      {/* Contenido — flex-1 para llenar la altura restante */}
+      <div className="flex-1 flex flex-col p-5 min-h-0">
         <h3 className="text-base font-bold text-white tracking-tight leading-snug mb-2 line-clamp-2">
           {titulo}
         </h3>
         {descripcion && (
-          <p className="text-sm text-zinc-500 leading-relaxed line-clamp-2 mb-4">{descripcion}</p>
+          <p className="text-sm text-zinc-500 leading-relaxed line-clamp-2 mb-3">{descripcion}</p>
         )}
 
         {/* Imágenes descriptivas */}
         {imagenes.length > 0 && (
-          <div className="flex gap-2 mb-4 overflow-x-auto">
+          <div className="flex gap-2 mb-3 overflow-hidden">
             {imagenes.slice(0, 3).map((src, i) => (
               <img
                 key={i}
                 src={src}
                 alt=""
-                className="h-14 w-20 object-cover rounded-lg shrink-0 opacity-70"
+                className="h-12 w-16 object-cover rounded-lg shrink-0 opacity-70"
                 onError={(e) => { e.target.style.display = 'none' }}
               />
             ))}
           </div>
         )}
 
-        {/* Footer: menciones + guardar */}
-        <div className="flex items-center justify-between pt-3 border-t border-white/5">
+        {/* Footer — siempre al fondo gracias a mt-auto */}
+        <div className="flex items-center justify-between mt-auto pt-3 border-t border-white/5">
           <div className="flex gap-2 flex-wrap">
             {menciones.slice(0, 2).map((m) => (
               <span key={m}
@@ -78,13 +94,12 @@ export function NewsCard({ item, index }) {
               </span>
             ))}
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 shrink-0">
             {url && (
-              <a
-                href={url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[10px] font-bold uppercase tracking-widest text-violet-400 hover:text-violet-300 transition-colors"
+              <a href={url} target="_blank" rel="noopener noreferrer"
+                className="text-[10px] font-bold uppercase tracking-widest text-violet-400
+                           hover:text-violet-300 transition-colors"
+                onClick={(e) => e.stopPropagation()}
               >
                 Leer →
               </a>
