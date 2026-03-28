@@ -14,6 +14,7 @@ import { StudioPage }         from './pages/StudioPage'
 import { PerfilPage }         from './pages/PerfilPage'
 import { NotificacionesPage } from './pages/NotificacionesPage'
 import { AdminPage }          from './pages/AdminPage'
+import { DetailPage }         from './pages/DetailPage'
 
 /**
  * AppShell — Shell único con Sidebar/TopBar estáticos.
@@ -49,6 +50,7 @@ function AppShell() {
               <Route path="/perfil"         element={<PerfilPage />} />
               <Route path="/notificaciones" element={<NotificacionesPage />} />
               <Route path="/admin"          element={<AdminPage />} />
+              <Route path="/item/:id"       element={<DetailPage />} />
             </Routes>
           </motion.div>
         </AnimatePresence>

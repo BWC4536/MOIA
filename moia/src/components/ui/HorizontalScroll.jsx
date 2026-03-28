@@ -1,17 +1,26 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { motion } from 'framer-motion'
 
 /**
  * HorizontalScroll — Carrusel horizontal con:
- * - CSS scroll-snap magnético (snap-rail / snap-item)
+ * - Drag físico con Framer Motion (drag="x" + ref-based constraints)
  * - Efecto biblioteca: capas de sombra desplazadas detrás de cada tarjeta
- * - whileTap para feedback táctil en el contenedor
+ * - Momentum natural y cursor grabbing
  */
 export function HorizontalScroll({ children }) {
+  const containerRef = useRef(null)
+
   return (
-    <div className="snap-rail overflow-x-scroll hide-scrollbar -mx-12 px-12 py-4">
+    <div
+      ref={containerRef}
+      className="overflow-x-hidden -mx-12 px-12 py-4 cursor-grab active:cursor-grabbing"
+    >
       <motion.div
         className="flex gap-6 pb-2"
+        drag="x"
+        dragConstraints={containerRef}
+        dragElastic={0.05}
+        dragMomentum={true}
         whileTap={{ cursor: 'grabbing' }}
       >
         {React.Children.map(children, (child, i) => (

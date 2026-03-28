@@ -1,3 +1,5 @@
+import { ArrowRight } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import { useSupabase } from '../../hooks/useSupabase'
 import { HorizontalScroll } from '../ui/HorizontalScroll'
 import { PromptCard } from '../ui/PromptCard'
@@ -16,8 +18,16 @@ export function PromptsGallery({ etiquetaFilter }) {
 
   return (
     <section>
-      <div className="mb-8">
-        <h2 className="text-3xl font-black tracking-tighter text-on-surface">Librería de Prompts</h2>
+      <div className="flex justify-between items-end mb-8">
+        <div>
+          <h2 className="text-3xl font-black tracking-tighter text-on-surface">Librería de Prompts</h2>
+        </div>
+        <Link
+          to="/prompts"
+          className="text-xs font-bold uppercase tracking-widest text-violet-400 flex items-center gap-2
+                     hover:gap-3 transition-all">
+          Ver Todo <ArrowRight size={11} />
+        </Link>
       </div>
 
       {loading && (

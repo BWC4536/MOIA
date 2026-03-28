@@ -1,12 +1,13 @@
 import { NavLink } from 'react-router-dom'
-import { Code2, Video, Terminal, Newspaper, Layers, Settings, HelpCircle, User } from 'lucide-react'
+import { Code2, Video, Terminal, Newspaper, Wrench, Cpu, Settings, HelpCircle, User } from 'lucide-react'
 
 const NAV_MAIN = [
-  { icon: Code2,     label: 'Code',         to: '/' },
+  { icon: Code2,     label: 'Inicio',       to: '/' },
   { icon: Video,     label: 'Video',        to: '/video' },
   { icon: Terminal,  label: 'Prompts',      to: '/prompts' },
   { icon: Newspaper, label: 'Noticias',     to: '/noticias' },
-  { icon: Layers,    label: 'App Requests', to: '/requests' },
+  { icon: Wrench,    label: 'Herramientas', to: '/library' },
+  { icon: Cpu,       label: 'Studio',       to: '/studio' },
 ]
 
 const NAV_FOOTER = [

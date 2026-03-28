@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { Bookmark, AtSign, Calendar } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 import { GlossOverlay } from './GlossOverlay'
 
 const PLACEHOLDER = '/images/placeholders/tool-default.webp'
@@ -18,6 +19,7 @@ const imgVariants = {
 export function NewsCard({ item, index }) {
   const { titulo, descripcion, imagen_url, url, created_at, metadatos = {} } = item
   const { menciones = [], imagenes = [] } = metadatos
+  const navigate = useNavigate()
 
   const date = created_at
     ? new Date(created_at).toLocaleDateString('es-ES', {
@@ -33,8 +35,9 @@ export function NewsCard({ item, index }) {
       whileHover="hover"
       whileTap={{ scale: 0.97 }}
       transition={{ duration: 0.4, delay: index * 0.05 }}
+      onClick={() => navigate(`/item/${item.id}`)}
       className="h-[440px] w-[340px] flex flex-col bg-white/[0.03] backdrop-blur-md
-                 border border-white/10 rounded-2xl overflow-hidden
+                 border border-white/10 rounded-2xl overflow-hidden cursor-pointer
                  hover:border-white/20 transition-colors"
     >
       {/* Portada con zoom + gloss */}
