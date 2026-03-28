@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { ArrowRight, ChevronsDown } from 'lucide-react'
-import heroImg from '../../assets/hero.png'
+import { HeroBackground } from '../ui/HeroBackground'
 
 const container = {
   hidden: {},
@@ -22,17 +22,8 @@ export function Hero() {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px]
                       bg-violet-500/5 blur-[120px] rounded-full pointer-events-none" />
 
-      {/* Hero image — fade-in + subtle upward entrance */}
-      <motion.img
-        src={heroImg}
-        alt=""
-        aria-hidden="true"
-        initial={{ opacity: 0, y: 32 }}
-        animate={{ opacity: 0.18, y: 0 }}
-        transition={{ duration: 1.1, ease: 'easeOut', delay: 0.3 }}
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[640px] max-w-none
-                   pointer-events-none select-none object-contain"
-      />
+      {/* Moai parallax background — sigue el cursor con efecto de profundidad */}
+      <HeroBackground />
 
       <motion.div
         variants={container}
