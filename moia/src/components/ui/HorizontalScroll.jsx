@@ -1,16 +1,27 @@
-import React, { useRef } from 'react'
+import React, { useRef, createContext, useContext } from 'react'
 import { motion } from 'framer-motion'
+
+/**
+ * DragScrollContext — compartido con tarjetas hijas para bloquear
+ * navegación cuando el usuario está arrastrando el carrusel.
+ * isDragging es un React ref (no state) para evitar re-renders.
+ */
+export const DragScrollContext = createContext({ isDragging: { current: false } })
+export function useDragScroll() { return useContext(DragScrollContext) }
 
 /**
  * HorizontalScroll — Carrusel horizontal con:
  * - Drag físico con Framer Motion (drag="x" + ref-based constraints)
  * - Efecto biblioteca: capas de sombra desplazadas detrás de cada tarjeta
  * - Momentum natural y cursor grabbing
+ * - DragScrollContext para que las tarjetas distingan drag de click
  */
 export function HorizontalScroll({ children }) {
   const containerRef = useRef(null)
+  const isDragging   = useRef(false)
 
   return (
+    <DragScrollContext.Provider value={{ isDragging }}>
     <div
       ref={containerRef}
       className="overflow-x-hidden -mx-12 px-12 py-4 cursor-grab active:cursor-grabbing"
@@ -22,6 +33,8 @@ export function HorizontalScroll({ children }) {
         dragElastic={0.05}
         dragMomentum={true}
         whileTap={{ cursor: 'grabbing' }}
+        onDragStart={() => { isDragging.current = true }}
+        onDragEnd={() => { setTimeout(() => { isDragging.current = false }, 80) }}
       >
         {React.Children.map(children, (child, i) => (
           <div key={i} className="snap-item shrink-0 relative w-fit">
@@ -49,5 +62,6 @@ export function HorizontalScroll({ children }) {
         ))}
       </motion.div>
     </div>
+    </DragScrollContext.Provider>
   )
 }

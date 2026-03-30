@@ -2,17 +2,19 @@ import { motion } from 'framer-motion'
 import { Bookmark } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { Badge } from './Badge'
+import { useDragScroll } from './HorizontalScroll'
 
 const PLACEHOLDER = '/images/placeholders/tool-default.webp'
 
 export function ProjectCard({ item }) {
   const { titulo, descripcion, imagen_url, etiqueta_ia, tipo, url } = item
   const navigate = useNavigate()
+  const { isDragging } = useDragScroll()
 
   return (
     <motion.div
       whileHover={{ y: -4, transition: { duration: 0.2 } }}
-      onClick={() => navigate(`/item/${item.id}`)}
+      onClick={() => { if (isDragging?.current) return; navigate(`/${item.tipo}/${item.id}`) }}
       className="min-w-[420px] flex-shrink-0 bg-surface-container rounded-xl overflow-hidden
                  border border-transparent hover:border-white/10 transition-colors group cursor-pointer"
     >

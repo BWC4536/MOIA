@@ -1,9 +1,11 @@
 import { motion } from 'framer-motion'
 import { Check, X, ExternalLink, Tag } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
+import { useDragScroll } from './HorizontalScroll'
 
 const PLACEHOLDER = '/images/placeholders/tool-default.webp'
 
-/** Tarjeta para tipo: 'herramienta' */
+/** Tarjeta para tipo: 'herramienta' / 'app' / 'skill' */
 export function ToolCard({ item }) {
   const { titulo, imagen_url, etiqueta_ia, metadatos = {} } = item
   const {
@@ -14,12 +16,15 @@ export function ToolCard({ item }) {
     pros = [],
     cons = [],
   } = metadatos
+  const navigate = useNavigate()
+  const { isDragging } = useDragScroll()
 
   return (
     <motion.div
       whileHover={{ y: -4, transition: { duration: 0.2 } }}
+      onClick={() => { if (isDragging?.current) return; navigate(`/${item.tipo}/${item.id}`) }}
       className="min-w-[380px] flex-shrink-0 bg-white/[0.03] backdrop-blur-md border border-white/10
-                 rounded-2xl p-5 hover:border-white/20 transition-colors"
+                 rounded-2xl p-5 hover:border-white/20 transition-colors cursor-pointer"
     >
       {/* Header */}
       <div className="flex items-center gap-3 mb-4">

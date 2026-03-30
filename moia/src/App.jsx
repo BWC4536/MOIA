@@ -51,6 +51,7 @@ function AppShell() {
               <Route path="/notificaciones" element={<NotificacionesPage />} />
               <Route path="/admin"          element={<AdminPage />} />
               <Route path="/item/:id"       element={<DetailPage />} />
+              <Route path="/:type/:id"      element={<DetailPage />} />
             </Routes>
           </motion.div>
         </AnimatePresence>

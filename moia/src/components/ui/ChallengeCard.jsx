@@ -1,7 +1,9 @@
 import { motion } from 'framer-motion'
 import { Clock, Zap, Trophy, Images } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 import { GlossOverlay } from './GlossOverlay'
 import { INSIGNIAS_CATALOGO } from '../../lib/insignias'
+import { useDragScroll } from './HorizontalScroll'
 
 const DIFFICULTY = {
   facil:      { label: 'Fácil',      cls: 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20' },
@@ -30,6 +32,8 @@ export function ChallengeCard({ item }) {
 
   const diff    = DIFFICULTY[dificultad] || DIFFICULTY.intermedio
   const insignia = id_insignia ? INSIGNIAS_CATALOGO.find((b) => b.id === id_insignia) : null
+  const navigate = useNavigate()
+  const { isDragging } = useDragScroll()
 
   return (
     <motion.div
@@ -38,8 +42,9 @@ export function ChallengeCard({ item }) {
       animate="rest"
       whileHover="hover"
       whileTap={{ scale: 0.97 }}
+      onClick={() => { if (isDragging?.current) return; navigate(`/${item.tipo}/${item.id}`) }}
       className="w-[380px] flex flex-col bg-white/[0.03] backdrop-blur-md border border-white/10
-                 rounded-2xl overflow-hidden hover:border-white/20 transition-colors"
+                 rounded-2xl overflow-hidden hover:border-white/20 transition-colors cursor-pointer"
     >
       {/* Portada con zoom + gloss */}
       <div className="h-44 shrink-0 overflow-hidden relative">

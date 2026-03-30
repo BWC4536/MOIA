@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion'
 import { GitBranch, ExternalLink, Calendar } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 import { GlossOverlay } from './GlossOverlay'
+import { useDragScroll } from './HorizontalScroll'
 
 const PLACEHOLDER = '/images/placeholders/tool-default.webp'
 
@@ -36,6 +38,8 @@ function StackBadge({ tech }) {
 export function WebsiteCard({ item }) {
   const { titulo, descripcion, imagen_url, url, created_at, metadatos = {} } = item
   const { fotos_sitio = [], funcion, tech_stack = [], repo_github, conv_ia } = metadatos
+  const navigate = useNavigate()
+  const { isDragging } = useDragScroll()
 
   const date = created_at
     ? new Date(created_at).toLocaleDateString('es-ES', { day: 'numeric', month: 'short' })
@@ -48,8 +52,9 @@ export function WebsiteCard({ item }) {
       animate="rest"
       whileHover="hover"
       whileTap={{ scale: 0.97 }}
+      onClick={() => { if (isDragging?.current) return; navigate(`/${item.tipo}/${item.id}`) }}
       className="bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-2xl overflow-hidden
-                 hover:border-white/20 transition-colors"
+                 hover:border-white/20 transition-colors cursor-pointer"
     >
       {/* Portada con zoom + gloss */}
       <div className="h-56 overflow-hidden relative">
