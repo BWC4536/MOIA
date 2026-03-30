@@ -15,7 +15,12 @@
       "Bash(node -e \"const l = require\\(''./node_modules/lucide-react''\\); const icons = [''ChevronsDown'',''Images'',''Wand2'',''Youtube'',''Construction'',''AtSign'',''UserCircle'',''BookOpen'',''Wand'',''Star'',''Trophy'',''Tag'',''GitBranch'']; icons.forEach\\(i => console.log\\(i, l[i] ? ''OK'' : ''MISSING''\\)\\)\")",
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(cd:*)",
+      "Bash(node -e \"require\\(''''./src/App.jsx''''\\)\")",
+      "Bash(cp \"src/pages/ChóllosPage.jsx\" \"src/pages/ChollosPage.jsx\")",
+      "Bash(rm \"src/pages/ChóllosPage.jsx\")",
+      "Bash(ls src/pages/Chol*)"
     ]
   }
 }

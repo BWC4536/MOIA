@@ -4,12 +4,13 @@ import { supabase } from '../../lib/supabaseClient'
 import { Plus, Minus, Send, Check } from 'lucide-react'
 
 const TIPOS = [
-  { value: 'noticia',     label: 'Noticia',      emoji: '📰' },
-  { value: 'web',         label: 'Web con IA',   emoji: '🌐' },
-  { value: 'reto',        label: 'Reto',         emoji: '🏆' },
-  { value: 'herramienta', label: 'Herramienta',  emoji: '🔧' },
-  { value: 'prompt',      label: 'Prompt',       emoji: '⚡' },
-  { value: 'app',         label: 'App / Skill',  emoji: '📱' },
+  { value: 'video',      label: 'Video',       emoji: '🎬' },
+  { value: 'prompt',     label: 'Prompt',      emoji: '⚡' },
+  { value: 'herramienta',label: 'Herramienta', emoji: '🔧' },
+  { value: 'web',        label: 'Web / App',   emoji: '🌐' },
+  { value: 'skill',      label: 'Skill',       emoji: '🧠' },
+  { value: 'noticia',    label: 'Noticia',     emoji: '📰' },
+  { value: 'chollo',     label: 'Chollo',      emoji: '🏷️' },
 ]
 
 const DIFICULTADES = ['facil', 'intermedio', 'avanzado']
@@ -265,17 +266,81 @@ function FieldsPrompt({ meta, setMeta }) {
   )
 }
 
+function FieldsVideo({ meta, setMeta }) {
+  return (
+    <>
+      <Field label="URL de YouTube">
+        <Input
+          value={meta.youtube_url || ''}
+          onChange={(e) => setMeta({ ...meta, youtube_url: e.target.value })}
+          placeholder="https://youtube.com/watch?v=..."
+        />
+      </Field>
+      <Field label="Duración">
+        <Input
+          value={meta.duracion || ''}
+          onChange={(e) => setMeta({ ...meta, duracion: e.target.value })}
+          placeholder="Ej: 12:34"
+        />
+      </Field>
+      <ArrayField
+        label="Puntos clave del vídeo"
+        values={meta.puntos_clave || ['']}
+        onChange={(v) => setMeta({ ...meta, puntos_clave: v })}
+        placeholder="Lo que aprenderás..."
+      />
+    </>
+  )
+}
+
+function FieldsChollo({ meta, setMeta }) {
+  return (
+    <>
+      <Field label="Precio original">
+        <Input
+          value={meta.precio_original || ''}
+          onChange={(e) => setMeta({ ...meta, precio_original: e.target.value })}
+          placeholder="Ej: $99/mes"
+        />
+      </Field>
+      <Field label="Precio chollo">
+        <Input
+          value={meta.precio_chollo || ''}
+          onChange={(e) => setMeta({ ...meta, precio_chollo: e.target.value })}
+          placeholder="Ej: Gratis / $9"
+        />
+      </Field>
+      <Field label="Descuento">
+        <Input
+          value={meta.descuento || ''}
+          onChange={(e) => setMeta({ ...meta, descuento: e.target.value })}
+          placeholder="Ej: 90% OFF"
+        />
+      </Field>
+      <Field label="Válido hasta">
+        <Input
+          type="date"
+          value={meta.valido_hasta || ''}
+          onChange={(e) => setMeta({ ...meta, valido_hasta: e.target.value })}
+        />
+      </Field>
+    </>
+  )
+}
+
 const META_FIELDS = {
-  noticia:     FieldsNoticia,
-  web:         FieldsWeb,
-  reto:        FieldsReto,
-  herramienta: FieldsHerramienta,
+  video:       FieldsVideo,
   prompt:      FieldsPrompt,
+  herramienta: FieldsHerramienta,
+  web:         FieldsWeb,
+  skill:       FieldsReto,
+  noticia:     FieldsNoticia,
+  chollo:      FieldsChollo,
 }
 
 /* ── Componente principal ── */
 export function AdminForm() {
-  const [tipo, setTipo]         = useState('noticia')
+  const [tipo, setTipo]         = useState('video')
   const [titulo, setTitulo]     = useState('')
   const [descripcion, setDesc]  = useState('')
   const [url, setUrl]           = useState('')

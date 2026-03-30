@@ -3,13 +3,17 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { Sidebar }            from './components/layout/Sidebar'
 import { TopBar }             from './components/layout/TopBar'
 import { Home }               from './pages/Home'
-import { VideoPage }          from './pages/VideoPage'
+import { VideosPage }         from './pages/VideosPage'
 import { PromptsPage }        from './pages/PromptsPage'
+import { LibraryPage }        from './pages/LibraryPage'
+import { WebsPage }           from './pages/WebsPage'
+import { SkillsPage }         from './pages/SkillsPage'
 import { NoticiasPage }       from './pages/NoticiasPage'
+import { ChollosPage }        from './pages/ChollosPage'
+import { ContactoPage }       from './pages/ContactoPage'
 import { AppRequestsPage }    from './pages/AppRequestsPage'
 import { SettingsPage }       from './pages/SettingsPage'
 import { SupportPage }        from './pages/SupportPage'
-import { LibraryPage }        from './pages/LibraryPage'
 import { StudioPage }         from './pages/StudioPage'
 import { PerfilPage }         from './pages/PerfilPage'
 import { NotificacionesPage } from './pages/NotificacionesPage'
@@ -38,20 +42,33 @@ function AppShell() {
             className="flex-1 flex flex-col"
           >
             <Routes location={location}>
-              <Route path="/"               element={<Home />} />
-              <Route path="/video"          element={<VideoPage />} />
-              <Route path="/prompts"        element={<PromptsPage />} />
-              <Route path="/noticias"       element={<NoticiasPage />} />
-              <Route path="/requests"       element={<AppRequestsPage />} />
+              {/* — Navegación principal — */}
+              <Route path="/"              element={<Home />} />
+              <Route path="/videos"        element={<VideosPage />} />
+              <Route path="/prompts"       element={<PromptsPage />} />
+              <Route path="/herramientas"  element={<LibraryPage />} />
+              <Route path="/webs"          element={<WebsPage />} />
+              <Route path="/skills"        element={<SkillsPage />} />
+              <Route path="/noticias"      element={<NoticiasPage />} />
+              <Route path="/chollos"       element={<ChollosPage />} />
+              <Route path="/contacto"      element={<ContactoPage />} />
+              <Route path="/requests"      element={<AppRequestsPage />} />
+
+              {/* — Rutas legacy (backward compat) — */}
+              <Route path="/video"         element={<VideosPage />} />
+              <Route path="/library"       element={<LibraryPage />} />
+
+              {/* — Sistema — */}
               <Route path="/settings"       element={<SettingsPage />} />
               <Route path="/support"        element={<SupportPage />} />
-              <Route path="/library"        element={<LibraryPage />} />
               <Route path="/studio"         element={<StudioPage />} />
               <Route path="/perfil"         element={<PerfilPage />} />
               <Route path="/notificaciones" element={<NotificacionesPage />} />
               <Route path="/admin"          element={<AdminPage />} />
-              <Route path="/item/:id"       element={<DetailPage />} />
-              <Route path="/:type/:id"      element={<DetailPage />} />
+
+              {/* — Detalle universal — */}
+              <Route path="/item/:id"      element={<DetailPage />} />
+              <Route path="/:type/:id"     element={<DetailPage />} />
             </Routes>
           </motion.div>
         </AnimatePresence>

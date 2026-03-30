@@ -41,7 +41,7 @@ export function ToolsSection({ etiquetaFilter }) {
           <p className="text-on-surface-variant text-sm mt-2">El arsenal definitivo del profesional de IA.</p>
         </div>
         <Link
-          to="/library"
+          to="/herramientas"
           className="text-xs font-bold uppercase tracking-widest text-violet-400 flex items-center gap-2
                      hover:gap-3 transition-all">
           Ver Todo <ArrowRight size={11} />
