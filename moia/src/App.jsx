@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Sidebar }            from './components/layout/Sidebar'
 import { TopBar }             from './components/layout/TopBar'
+import { ProtectedRoute }     from './components/auth/ProtectedRoute'
 import { Home }               from './pages/Home'
 import { VideosPage }         from './pages/VideosPage'
 import { PromptsPage }        from './pages/PromptsPage'
@@ -18,6 +19,7 @@ import { StudioPage }         from './pages/StudioPage'
 import { PerfilPage }         from './pages/PerfilPage'
 import { NotificacionesPage } from './pages/NotificacionesPage'
 import { AdminPage }          from './pages/AdminPage'
+import { LoginPage }          from './pages/LoginPage'
 import { DetailPage }         from './pages/DetailPage'
 
 /**
@@ -64,7 +66,7 @@ function AppShell() {
               <Route path="/studio"         element={<StudioPage />} />
               <Route path="/perfil"         element={<PerfilPage />} />
               <Route path="/notificaciones" element={<NotificacionesPage />} />
-              <Route path="/admin"          element={<AdminPage />} />
+              <Route path="/admin"          element={<ProtectedRoute><AdminPage /></ProtectedRoute>} />
 
               {/* — Detalle universal — */}
               <Route path="/item/:id"      element={<DetailPage />} />
@@ -80,7 +82,12 @@ function AppShell() {
 export default function App() {
   return (
     <BrowserRouter>
-      <AppShell />
+      <Routes>
+        {/* Login standalone — sin Sidebar ni TopBar */}
+        <Route path="/login" element={<LoginPage />} />
+        {/* Resto de la app con AppShell */}
+        <Route path="/*" element={<AppShell />} />
+      </Routes>
     </BrowserRouter>
   )
 }
