@@ -285,26 +285,6 @@ export function HologramForm({ submitLabel = 'Enviar', showRRSS = false }) {
           style={{ background: 'linear-gradient(90deg, transparent, rgba(34,211,238,0.3), transparent)' }} />
       </motion.div>
 
-      {/* ── Base del holograma (proyector) ── */}
-      <motion.div
-        initial={{ opacity: 0, scaleX: 0.7 }}
-        animate={{ opacity: 1, scaleX: 1 }}
-        transition={{ duration: 0.7, ease: 'easeOut', delay: 0.2 }}
-        className="relative w-full mt-0"
-      >
-        {/* Haz de proyección — gradiente entre panel y base */}
-        <div className="absolute -top-8 left-1/2 -translate-x-1/2 w-3/4 h-8 pointer-events-none"
-          style={{ background: 'linear-gradient(to bottom, transparent, rgba(34,211,238,0.08), rgba(34,211,238,0.04))' }} />
-
-        <img
-          src="/hologram-base.png"
-          alt=""
-          className="w-full max-h-24 object-contain object-center select-none pointer-events-none"
-          style={{ filter: 'drop-shadow(0 0 20px rgba(34,211,238,0.45))' }}
-          draggable={false}
-        />
-      </motion.div>
-
       {/* ── Botones RRSS ── */}
       {showRRSS && (
         <motion.div

@@ -90,7 +90,7 @@ function MetaRow({ tipo, etiqueta_ia, created_at }) {
 
 function PromptView({ item }) {
   const { titulo, descripcion, etiqueta_ia, tipo, created_at, metadatos = {} } = item
-  const promptText = metadatos.prompt_completo || descripcion || ''
+  const promptText = metadatos.prompt_completo || metadatos.contenido || descripcion || ''
   const [copied, setCopied] = useState(false)
 
   function handleCopy() {
@@ -108,48 +108,63 @@ function PromptView({ item }) {
         {titulo}
       </h1>
 
-      {/* Caja del prompt con botón copiar */}
-      <div className="relative group">
-        <div className="bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-2xl p-6 mb-8">
-          <p className="text-gray-300 text-sm leading-relaxed whitespace-pre-wrap font-mono">
-            {promptText || 'Sin contenido.'}
-          </p>
+      {/* Bloque de código con botón copiar */}
+      <div className="relative group mb-8">
+        {/* Barra superior estilo editor */}
+        <div className="flex items-center justify-between px-4 py-2.5
+                        bg-white/[0.04] border border-white/10 border-b-white/5
+                        rounded-t-2xl">
+          <div className="flex items-center gap-1.5">
+            <span className="w-2.5 h-2.5 rounded-full bg-red-500/50" />
+            <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/50" />
+            <span className="w-2.5 h-2.5 rounded-full bg-green-500/50" />
+          </div>
+          <span className="text-[9px] uppercase tracking-widest text-zinc-600 font-bold">prompt</span>
+
+          {/* Botón copiar integrado en la barra */}
+          <motion.button
+            onClick={handleCopy}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="flex items-center gap-1.5 px-3 py-1 rounded-lg
+                       bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30
+                       text-cyan-400 text-[10px] font-bold tracking-wide cursor-pointer
+                       transition-colors duration-200"
+          >
+            <AnimatePresence mode="wait" initial={false}>
+              {copied ? (
+                <motion.span
+                  key="check"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  className="flex items-center gap-1.5"
+                >
+                  <Check size={11} /> ¡Copiado!
+                </motion.span>
+              ) : (
+                <motion.span
+                  key="copy"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  className="flex items-center gap-1.5"
+                >
+                  <Copy size={11} /> Copiar Código
+                </motion.span>
+              )}
+            </AnimatePresence>
+          </motion.button>
         </div>
 
-        {/* Botón copiar flotante */}
-        <motion.button
-          onClick={handleCopy}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="absolute bottom-12 right-4 flex items-center gap-2 px-4 py-2 rounded-xl
-                     bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30
-                     text-cyan-400 text-xs font-bold tracking-wide cursor-pointer
-                     transition-colors duration-200"
-        >
-          <AnimatePresence mode="wait" initial={false}>
-            {copied ? (
-              <motion.span
-                key="check"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                className="flex items-center gap-1.5"
-              >
-                <Check size={12} /> ¡Copiado!
-              </motion.span>
-            ) : (
-              <motion.span
-                key="copy"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                className="flex items-center gap-1.5"
-              >
-                <Copy size={12} /> Copiar Prompt
-              </motion.span>
-            )}
-          </AnimatePresence>
-        </motion.button>
+        {/* Cuerpo del bloque */}
+        <div className="bg-black/40 backdrop-blur-md border border-white/10 border-t-0
+                        rounded-b-2xl p-6">
+          <pre className="text-gray-300 text-sm leading-relaxed whitespace-pre-wrap font-mono
+                          overflow-x-auto">
+            {promptText || 'Sin contenido.'}
+          </pre>
+        </div>
       </div>
     </>
   )

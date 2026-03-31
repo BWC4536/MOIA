@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Terminal, Brain, Paintbrush, BookOpen, Copy, Check, ChevronDown, PlayCircle } from 'lucide-react'
 
@@ -45,8 +46,11 @@ export function PromptCard({ item, index }) {
     youtube_url,
   } = metadatos
 
+  const navigate = useNavigate()
   const Icon = ICONS[index % ICONS.length]
   const [expanded, setExpanded] = useState(false)
+
+  const goToDetail = () => navigate(`/prompts/${item.id}`)
 
   // Si no hay metadatos ricos, mostrar card simplificada
   const isRich = bloques_codigo.length > 0 || resumen_puntos.length > 0
@@ -54,9 +58,10 @@ export function PromptCard({ item, index }) {
   if (!isRich) {
     return (
       <motion.div
+        onClick={goToDetail}
         whileHover={{ y: -4, transition: { duration: 0.2 } }}
         className="min-w-[300px] flex-shrink-0 p-6 rounded-xl bg-surface-container-lowest
-                   border border-white/5 flex flex-col justify-between"
+                   border border-white/5 flex flex-col justify-between cursor-pointer"
       >
         <div>
           <Icon size={20} className="text-violet-400 mb-4" />
@@ -70,9 +75,10 @@ export function PromptCard({ item, index }) {
 
   return (
     <motion.div
+      onClick={goToDetail}
       whileHover={{ y: -2, transition: { duration: 0.2 } }}
       className="min-w-[360px] flex-shrink-0 bg-white/[0.03] backdrop-blur-md border border-white/10
-                 rounded-2xl overflow-hidden"
+                 rounded-2xl overflow-hidden cursor-pointer"
     >
       {/* Header */}
       <div className="p-5 pb-3">
