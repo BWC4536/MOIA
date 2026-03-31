@@ -90,7 +90,17 @@ function MetaRow({ tipo, etiqueta_ia, created_at }) {
 
 function PromptView({ item }) {
   const { titulo, descripcion, etiqueta_ia, tipo, created_at, metadatos = {} } = item
-  const promptText = metadatos.prompt_completo || metadatos.contenido || descripcion || ''
+
+  // El contenido completo vive en metadatos.bloques_codigo (array).
+  // Si hay varios bloques los unimos con separador; si el campo no existe
+  // caemos a descripcion como último recurso.
+  const bloques = Array.isArray(metadatos.bloques_codigo)
+    ? metadatos.bloques_codigo.filter(Boolean)
+    : []
+  const promptText = bloques.length > 0
+    ? bloques.join('\n\n――――――――――――――――――――――――――――――\n\n')
+    : (metadatos.prompt_completo || metadatos.contenido || descripcion || '')
+
   const [copied, setCopied] = useState(false)
 
   function handleCopy() {
@@ -104,9 +114,14 @@ function PromptView({ item }) {
     <>
       <MetaRow tipo={tipo} etiqueta_ia={etiqueta_ia} created_at={created_at} />
 
-      <h1 className="text-4xl font-black tracking-tighter text-white mb-6 leading-tight">
+      <h1 className="text-4xl font-black tracking-tighter text-white mb-3 leading-tight">
         {titulo}
       </h1>
+
+      {/* Descripción corta como subtítulo */}
+      {descripcion && (
+        <p className="text-zinc-400 text-base leading-relaxed mb-6">{descripcion}</p>
+      )}
 
       {/* Bloque de código con botón copiar */}
       <div className="relative group mb-8">
