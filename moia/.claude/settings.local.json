@@ -20,7 +20,9 @@
       "Bash(node -e \"require\\(''''./src/App.jsx''''\\)\")",
       "Bash(cp \"src/pages/ChóllosPage.jsx\" \"src/pages/ChollosPage.jsx\")",
       "Bash(rm \"src/pages/ChóllosPage.jsx\")",
-      "Bash(ls src/pages/Chol*)"
+      "Bash(ls src/pages/Chol*)",
+      "Read(//d/PERSONAL/Dinero/MOIA/MOIA/**)",
+      "Bash(node:*)"
     ]
   }
 }

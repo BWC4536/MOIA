@@ -220,18 +220,16 @@ const variants = {
 
 ## 6. FLUJO DE TRABAJO MCP
 
-Claude Code opera con tres servidores MCP activos en esta terminal:
+Claude Code opera con dos servidores MCP activos en esta terminal:
 
 | Servidor MCP | Rol | Cuándo usarlo |
 |---|---|---|
 | `Supabase MCP` | Agente de Datos | Leer esquema, ejecutar queries, validar datos |
-| `React MCP` | Agente Visual/DOM | Inspeccionar componentes, validar render |
-| `Ruflo` | Orquestador de enjambre | Coordinar tareas multi-agente complejas |
+| `Chrome DevTools MCP` | Agente Visual/DOM | Inspeccionar componentes, validar render |
 
 **Protocolo de uso:**
 1. Antes de asumir el esquema de una tabla, usar `Supabase MCP` para hacer `SELECT` y verificar.
-2. Si una tarea implica más de 3 componentes simultáneos, coordinar vía `Ruflo`.
-3. Usar `React MCP` para validar que los componentes renderizan correctamente antes de dar una tarea por terminada.
+2. Usar `Chrome DevTools MCP` para validar que los componentes renderizan correctamente antes de dar una tarea por terminada.
 
 ---
 
