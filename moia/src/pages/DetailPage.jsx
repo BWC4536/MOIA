@@ -351,10 +351,28 @@ function CholloView({ item }) {
 /* ─── VISTA: Artículo (noticias, herramientas, webs, skills, app) */
 
 function ArticleView({ item }) {
-  const { titulo, descripcion, imagen_url, imagen, etiqueta_ia, tipo, url, created_at, metadatos = {} } = item
+  const {
+    titulo, descripcion, imagen_url, imagen, etiqueta_ia, tipo,
+    url, created_at, metadatos = {},
+    puntos_clave: clavesDirectas = null,
+    autor = null, fuente = null,
+  } = item
   const heroImg  = imagen_url || imagen || null
   const hasImage = !!heroImg
   const bodyText = metadatos.contenido || metadatos.cuerpo || null
+  const isNoticia = tipo === 'noticia' || tipo === 'noticias'
+
+  // Normaliza puntos_clave desde campo directo o metadatos (array, JSON string o multiline)
+  const rawClaves = clavesDirectas || metadatos.puntos_clave || null
+  let clavesArray = []
+  if (rawClaves) {
+    if (Array.isArray(rawClaves)) {
+      clavesArray = rawClaves.filter(Boolean)
+    } else if (typeof rawClaves === 'string') {
+      try { clavesArray = JSON.parse(rawClaves).filter(Boolean) }
+      catch { clavesArray = rawClaves.split('\n').map(s => s.trim()).filter(Boolean) }
+    }
+  }
 
   return (
     <>
@@ -365,7 +383,7 @@ function ArticleView({ item }) {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, ease: 'easeOut', delay: 0.05 }}
           className="w-full h-72 rounded-2xl overflow-hidden mb-8 bg-zinc-900
-                     border border-white/10 shadow-lg shadow-black/40"
+                     border border-white/10 shadow-lg shadow-black/40 relative"
         >
           <img
             src={heroImg}
@@ -373,12 +391,31 @@ function ArticleView({ item }) {
             className="w-full h-full object-cover opacity-80"
             onError={e => { e.target.src = PLACEHOLDER }}
           />
+          {/* Gradiente inferior sobre la imagen */}
+          <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/70 via-transparent to-transparent pointer-events-none" />
         </motion.div>
       )}
 
       <MetaRow tipo={tipo} etiqueta_ia={etiqueta_ia} created_at={created_at} />
 
-      <h1 className="text-4xl font-black tracking-tighter text-white mb-4 leading-tight">
+      {/* Autor / Fuente */}
+      {(autor || fuente) && (
+        <div className="flex flex-wrap gap-4 mb-4 text-xs text-zinc-500">
+          {fuente && (
+            <span>Fuente: <span className="text-zinc-300 font-medium">{fuente}</span></span>
+          )}
+          {autor && (
+            <span>Por: <span className="text-zinc-300 font-medium">{autor}</span></span>
+          )}
+        </div>
+      )}
+
+      {/* Título — degradado en noticias, blanco en el resto */}
+      <h1 className={`text-4xl font-black tracking-tighter mb-4 leading-tight ${
+        isNoticia
+          ? 'bg-gradient-to-r from-white via-violet-200 to-cyan-300 bg-clip-text text-transparent'
+          : 'text-white'
+      }`}>
         {titulo}
       </h1>
 
@@ -386,6 +423,24 @@ function ArticleView({ item }) {
         <p className="text-gray-300 text-base leading-relaxed mb-8">
           {descripcion}
         </p>
+      )}
+
+      {/* Puntos clave */}
+      {clavesArray.length > 0 && (
+        <div className="bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-2xl p-6 mb-8">
+          <h2 className="text-xs uppercase tracking-widest text-violet-400 font-bold mb-4 flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-violet-400 inline-block" />
+            Puntos clave
+          </h2>
+          <ul className="flex flex-col gap-3">
+            {clavesArray.map((punto, i) => (
+              <li key={i} className="flex items-start gap-3 text-sm text-gray-300">
+                <span className="mt-1.5 w-1 h-1 rounded-full bg-cyan-400 flex-shrink-0" />
+                {punto}
+              </li>
+            ))}
+          </ul>
+        </div>
       )}
 
       {bodyText && (
@@ -407,7 +462,7 @@ function ArticleView({ item }) {
                      text-violet-300 font-bold text-sm tracking-tight
                      transition-colors duration-200"
         >
-          Visitar Enlace <ExternalLink size={14} />
+          Leer artículo completo <ExternalLink size={14} />
         </motion.a>
       )}
     </>
