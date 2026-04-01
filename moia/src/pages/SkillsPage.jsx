@@ -41,8 +41,14 @@ export function SkillsPage() {
           <div className="text-zinc-600 text-sm py-20 text-center">No hay skills publicados aún.</div>
         )}
         {!loading && !error && data.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {data.map((item) => <ChallengeCard key={item.id} item={item} />)}
+          <div className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar gap-4 pb-6 pt-2
+                          md:grid md:grid-cols-2 lg:grid-cols-3 md:overflow-x-visible
+                          md:snap-none md:pb-0 md:pt-0 md:gap-6">
+            {data.map((item) => (
+              <div key={item.id} className="w-[85vw] sm:w-[350px] shrink-0 snap-center md:w-auto">
+                <ChallengeCard item={item} />
+              </div>
+            ))}
           </div>
         )}
       </motion.div>
