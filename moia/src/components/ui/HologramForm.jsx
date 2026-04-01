@@ -150,7 +150,7 @@ export function HologramForm({ submitLabel = 'Enviar', showRRSS = false }) {
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-20 pointer-events-none"
           style={{ background: 'radial-gradient(ellipse at 50% 0%, rgba(34,211,238,0.07), transparent 70%)' }} />
 
-        <form onSubmit={handleSubmit} className="p-8 space-y-4">
+        <form onSubmit={handleSubmit} className="p-5 md:p-8 space-y-4">
 
           {/* Indicador de estado activo */}
           <div className="flex items-center gap-2 mb-5">
