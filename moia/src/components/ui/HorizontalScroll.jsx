@@ -34,6 +34,7 @@ export function HorizontalScroll({ children }) {
           dragElastic={0.05}
           dragMomentum={true}
           whileTap={{ cursor: 'grabbing' }}
+          style={{ touchAction: 'pan-y' }}
           onDragStart={() => { isDragging.current = false }}
           onDrag={(_, info) => {
             // Umbral de 5px: si se desplazó más de 5px en cualquier eje → es drag real
