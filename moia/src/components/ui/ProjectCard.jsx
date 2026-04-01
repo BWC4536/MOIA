@@ -15,7 +15,7 @@ export function ProjectCard({ item }) {
     <motion.div
       whileHover={{ y: -4, transition: { duration: 0.2 } }}
       onClick={() => { if (isDragging?.current) return; navigate(`/${item.tipo}/${item.id}`) }}
-      className="min-w-[420px] flex-shrink-0 bg-surface-container rounded-xl overflow-hidden
+      className="w-full bg-surface-container rounded-xl overflow-hidden
                  border border-transparent hover:border-white/10 transition-colors group cursor-pointer"
     >
       <div className="h-56 w-full overflow-hidden bg-zinc-900">

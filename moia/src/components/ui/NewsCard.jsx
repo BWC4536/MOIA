@@ -38,7 +38,7 @@ export function NewsCard({ item, index }) {
       whileTap={{ scale: 0.97 }}
       transition={{ duration: 0.4, delay: index * 0.05 }}
       onClick={() => { if (isDragging?.current) return; navigate(`/${item.tipo}/${item.id}`) }}
-      className="h-[440px] w-[340px] flex flex-col bg-white/[0.03] backdrop-blur-md
+      className="min-h-[440px] w-full flex flex-col bg-white/[0.03] backdrop-blur-md
                  border border-white/10 rounded-2xl overflow-hidden cursor-pointer
                  hover:border-white/20 transition-colors"
     >

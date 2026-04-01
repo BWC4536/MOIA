@@ -43,7 +43,7 @@ export function ChallengeCard({ item }) {
       whileHover="hover"
       whileTap={{ scale: 0.97 }}
       onClick={() => { if (isDragging?.current) return; navigate(`/${item.tipo}/${item.id}`) }}
-      className="w-[380px] flex flex-col bg-white/[0.03] backdrop-blur-md border border-white/10
+      className="w-full flex flex-col bg-white/[0.03] backdrop-blur-md border border-white/10
                  rounded-2xl overflow-hidden hover:border-white/20 transition-colors cursor-pointer"
     >
       {/* Portada con zoom + gloss */}

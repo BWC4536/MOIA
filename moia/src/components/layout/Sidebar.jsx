@@ -22,13 +22,22 @@ const NAV_FOOTER = [
   { icon: HelpCircle,label: 'Soporte',                  to: '/support' },
 ]
 
+// 5 ítems principales para la barra inferior móvil
+const NAV_BOTTOM = [
+  { icon: Code2,    label: 'Inicio',       to: '/' },
+  { icon: Video,    label: 'Videos',       to: '/videos' },
+  { icon: Terminal, label: 'Prompts',      to: '/prompts' },
+  { icon: Wrench,   label: 'Tools',        to: '/herramientas' },
+  { icon: Newspaper,label: 'Noticias',     to: '/noticias' },
+]
+
 const activeClass   = 'text-white font-semibold border-l-2 border-violet-400 pl-4 -ml-1 bg-violet-500/5'
 const inactiveClass = 'text-zinc-500 hover:text-zinc-300 hover:bg-white/[0.03]'
 
 export function Sidebar() {
   return (
-    <aside className="fixed left-0 top-0 h-screen w-64 bg-black border-r border-white/5 z-40
-                      flex flex-col p-6 antialiased tracking-tight text-sm">
+    <aside className="hidden md:flex fixed left-0 top-0 h-screen w-64 bg-black border-r border-white/5 z-40
+                      flex-col p-6 antialiased tracking-tight text-sm">
       <div className="mb-8 pt-16">
         <h1 className="text-lg font-bold tracking-tighter text-white">AI Hub</h1>
         <p className="text-[10px] uppercase tracking-widest text-zinc-500 mt-1">Intelligence Suite</p>
@@ -83,5 +92,33 @@ export function Sidebar() {
         </NavLink>
       </div>
     </aside>
+  )
+}
+
+/** Barra de navegación inferior — sólo visible en móvil (< md) */
+export function BottomNav() {
+  return (
+    <nav className="fixed bottom-0 inset-x-0 h-16 bg-black/95 backdrop-blur-md
+                    border-t border-white/10 flex items-center justify-around
+                    md:hidden z-50 px-1">
+      {NAV_BOTTOM.map(({ icon: Icon, label, to }) => (
+        <NavLink
+          key={label}
+          to={to}
+          end={to === '/'}
+          className={({ isActive }) =>
+            `flex flex-col items-center justify-center gap-1 min-w-[44px] min-h-[44px]
+             rounded-xl px-2 transition-colors ${
+               isActive
+                 ? 'text-violet-400'
+                 : 'text-zinc-600 hover:text-zinc-300'
+             }`
+          }
+        >
+          <Icon size={20} />
+          <span className="text-[9px] uppercase tracking-widest font-bold leading-none">{label}</span>
+        </NavLink>
+      ))}
+    </nav>
   )
 }

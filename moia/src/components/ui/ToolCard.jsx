@@ -23,7 +23,7 @@ export function ToolCard({ item }) {
     <motion.div
       whileHover={{ y: -4, transition: { duration: 0.2 } }}
       onClick={() => { if (isDragging?.current) return; navigate(`/${item.tipo}/${item.id}`) }}
-      className="min-w-[380px] flex-shrink-0 bg-white/[0.03] backdrop-blur-md border border-white/10
+      className="w-full bg-white/[0.03] backdrop-blur-md border border-white/10
                  rounded-2xl p-5 hover:border-white/20 transition-colors cursor-pointer"
     >
       {/* Header */}

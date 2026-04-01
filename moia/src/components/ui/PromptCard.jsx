@@ -60,7 +60,7 @@ export function PromptCard({ item, index }) {
       <motion.div
         onClick={goToDetail}
         whileHover={{ y: -4, transition: { duration: 0.2 } }}
-        className="min-w-[300px] flex-shrink-0 p-6 rounded-xl bg-surface-container-lowest
+        className="w-full p-6 rounded-xl bg-surface-container-lowest
                    border border-white/5 flex flex-col justify-between cursor-pointer"
       >
         <div>
@@ -77,7 +77,7 @@ export function PromptCard({ item, index }) {
     <motion.div
       onClick={goToDetail}
       whileHover={{ y: -2, transition: { duration: 0.2 } }}
-      className="min-w-[360px] flex-shrink-0 bg-white/[0.03] backdrop-blur-md border border-white/10
+      className="w-full bg-white/[0.03] backdrop-blur-md border border-white/10
                  rounded-2xl overflow-hidden cursor-pointer"
     >
       {/* Header */}

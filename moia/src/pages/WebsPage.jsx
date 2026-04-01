@@ -10,7 +10,7 @@ export function WebsPage() {
   })
 
   return (
-    <main className="flex-1 px-12 py-12">
+    <main className="flex-1 px-4 py-6 md:px-12 md:py-12">
       <motion.div
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
@@ -41,7 +41,7 @@ export function WebsPage() {
           <div className="text-zinc-600 text-sm py-20 text-center">No hay webs publicadas aún.</div>
         )}
         {!loading && !error && data.length > 0 && (
-          <div className="flex flex-wrap gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {data.map((item) => <WebsiteCard key={item.id} item={item} />)}
           </div>
         )}

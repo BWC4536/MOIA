@@ -17,7 +17,7 @@ function scrollToTools() {
 
 export function Hero() {
   return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-[calc(100svh-4rem)] md:min-h-screen flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-surface via-surface to-black" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px]
                       bg-violet-500/5 blur-[120px] rounded-full pointer-events-none" />
@@ -42,7 +42,7 @@ export function Hero() {
         </motion.h1>
 
         <motion.p variants={fadeUp}
-          className="mt-8 text-on-surface-variant max-w-2xl mx-auto text-lg font-light leading-relaxed">
+          className="mt-6 md:mt-8 text-on-surface-variant max-w-2xl mx-auto text-base md:text-lg font-light leading-relaxed">
           Un ecosistema unificado para ingenieros de prompts, desarrolladores y entusiastas
           de la inteligencia artificial. Descubre herramientas que expanden el pensamiento humano.
         </motion.p>

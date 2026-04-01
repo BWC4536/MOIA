@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Sidebar }            from './components/layout/Sidebar'
+import { Sidebar, BottomNav } from './components/layout/Sidebar'
 import { TopBar }             from './components/layout/TopBar'
 import { ProtectedRoute }     from './components/auth/ProtectedRoute'
 import { Home }               from './pages/Home'
@@ -32,7 +32,7 @@ function AppShell() {
   return (
     <div className="flex min-h-screen bg-background">
       <Sidebar />
-      <div className="ml-64 flex-1 min-w-0 flex flex-col overflow-hidden">
+      <div className="md:ml-64 flex-1 min-w-0 flex flex-col overflow-hidden pb-16 md:pb-0">
         <TopBar />
         <AnimatePresence mode="wait" initial={false}>
           <motion.div
@@ -75,6 +75,7 @@ function AppShell() {
           </motion.div>
         </AnimatePresence>
       </div>
+      <BottomNav />
     </div>
   )
 }

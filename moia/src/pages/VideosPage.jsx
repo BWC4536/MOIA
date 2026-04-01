@@ -14,7 +14,7 @@ function VideoCard({ item }) {
     <motion.div
       whileHover={{ y: -4, transition: { duration: 0.2 } }}
       onClick={() => navigate(`/${item.tipo}/${item.id}`)}
-      className="w-[340px] flex-shrink-0 bg-white/[0.03] backdrop-blur-md border border-white/10
+      className="w-full bg-white/[0.03] backdrop-blur-md border border-white/10
                  rounded-2xl overflow-hidden hover:border-white/20 transition-colors cursor-pointer"
     >
       <div className="h-48 relative overflow-hidden bg-zinc-900">
@@ -58,7 +58,7 @@ export function VideosPage() {
   })
 
   return (
-    <main className="flex-1 px-12 py-12">
+    <main className="flex-1 px-4 py-6 md:px-12 md:py-12">
       <motion.div
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
@@ -89,7 +89,7 @@ export function VideosPage() {
           <div className="text-zinc-600 text-sm py-20 text-center">No hay vídeos publicados aún.</div>
         )}
         {!loading && !error && data.length > 0 && (
-          <div className="flex flex-wrap gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {data.map((item) => <VideoCard key={item.id} item={item} />)}
           </div>
         )}

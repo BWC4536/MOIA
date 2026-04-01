@@ -25,7 +25,7 @@ export function HorizontalScroll({ children }) {
     <DragScrollContext.Provider value={{ isDragging }}>
       <div
         ref={containerRef}
-        className="overflow-x-hidden -mx-12 px-12 py-4 cursor-grab active:cursor-grabbing"
+        className="overflow-x-hidden -mx-4 px-4 md:-mx-12 md:px-12 py-4 cursor-grab active:cursor-grabbing"
       >
         <motion.div
           className="flex gap-6 pb-2"
@@ -47,7 +47,7 @@ export function HorizontalScroll({ children }) {
           }}
         >
           {React.Children.map(children, (child, i) => (
-            <div key={i} className="snap-item shrink-0 relative w-fit">
+            <div key={i} className="snap-item shrink-0 relative w-[320px] md:w-[360px]">
               {/* Capa 2 — sombra más alejada (obsidiana profunda) */}
               <div
                 className="absolute inset-0 rounded-2xl border border-white/[0.045] pointer-events-none"

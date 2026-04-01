@@ -17,7 +17,7 @@ export function Home() {
       <main className="flex-1">
         <Hero />
         <FilterPills active={activeFilter} onChange={setActiveFilter} />
-        <div className="px-12 py-12 space-y-24">
+        <div className="px-4 py-6 md:px-12 md:py-12 space-y-24">
           <ToolsSection       etiquetaFilter={activeFilter} />
           <AIWebsitesBento    etiquetaFilter={activeFilter} />
           <NewsFeed           etiquetaFilter={activeFilter} />

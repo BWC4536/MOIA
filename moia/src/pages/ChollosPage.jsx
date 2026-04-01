@@ -14,7 +14,7 @@ function CholosCard({ item }) {
     <motion.div
       whileHover={{ y: -4, transition: { duration: 0.2 } }}
       onClick={() => navigate(`/${item.tipo}/${item.id}`)}
-      className="w-[320px] flex-shrink-0 bg-white/[0.03] backdrop-blur-md border border-white/10
+      className="w-full bg-white/[0.03] backdrop-blur-md border border-white/10
                  rounded-2xl p-5 hover:border-white/20 transition-colors cursor-pointer"
     >
       <div className="flex items-start gap-4 mb-4">
@@ -81,7 +81,7 @@ export function ChollosPage() {
   })
 
   return (
-    <main className="flex-1 px-12 py-12">
+    <main className="flex-1 px-4 py-6 md:px-12 md:py-12">
       <motion.div
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
@@ -114,7 +114,7 @@ export function ChollosPage() {
           </div>
         )}
         {!loading && !error && data.length > 0 && (
-          <div className="flex flex-wrap gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {data.map((item) => <CholosCard key={item.id} item={item} />)}
           </div>
         )}
