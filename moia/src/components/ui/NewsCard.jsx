@@ -18,7 +18,8 @@ const imgVariants = {
 
 /** Tarjeta rica para tipo: 'noticia' — altura fija para alineación perfecta en carrusel */
 export function NewsCard({ item, index }) {
-  const { titulo, descripcion, imagen_url, url, created_at, metadatos = {} } = item
+  const { titulo, descripcion, imagen_url, imagen, url, created_at, metadatos = {} } = item
+  const imgSrc = imagen_url || imagen || PLACEHOLDER
   const { menciones = [], imagenes = [] } = metadatos
   const navigate = useNavigate()
   const { isDragging } = useDragScroll()
@@ -45,7 +46,7 @@ export function NewsCard({ item, index }) {
       {/* Portada con zoom + gloss */}
       <div className="h-52 shrink-0 overflow-hidden relative">
         <motion.img
-          src={imagen_url || PLACEHOLDER}
+          src={imgSrc}
           alt={titulo}
           className="w-full h-full object-cover"
           variants={imgVariants}

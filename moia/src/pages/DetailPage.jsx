@@ -260,7 +260,8 @@ function VideoView({ item }) {
 /* ─── VISTA: Chollo ──────────────────────────────────────────── */
 
 function CholloView({ item }) {
-  const { titulo, descripcion, imagen_url, etiqueta_ia, tipo, url, created_at, metadatos = {} } = item
+  const { titulo, descripcion, imagen_url, imagen, etiqueta_ia, tipo, url, created_at, metadatos = {} } = item
+  const cholloImg      = imagen_url || imagen || PLACEHOLDER
   const precioOriginal = metadatos.precio_original ?? null
   const precioFinal    = metadatos.precio_final ?? null
   const descuento      = metadatos.descuento ?? null
@@ -277,7 +278,7 @@ function CholloView({ item }) {
         className="w-full h-64 rounded-2xl overflow-hidden mb-8 bg-zinc-900 border border-white/10"
       >
         <img
-          src={imagen_url || PLACEHOLDER}
+          src={cholloImg}
           alt={titulo}
           className="w-full h-full object-cover opacity-85"
           onError={e => { e.target.src = PLACEHOLDER }}
@@ -350,8 +351,9 @@ function CholloView({ item }) {
 /* ─── VISTA: Artículo (noticias, herramientas, webs, skills, app) */
 
 function ArticleView({ item }) {
-  const { titulo, descripcion, imagen_url, etiqueta_ia, tipo, url, created_at, metadatos = {} } = item
-  const hasImage = !!(imagen_url)
+  const { titulo, descripcion, imagen_url, imagen, etiqueta_ia, tipo, url, created_at, metadatos = {} } = item
+  const heroImg  = imagen_url || imagen || null
+  const hasImage = !!heroImg
   const bodyText = metadatos.contenido || metadatos.cuerpo || null
 
   return (
@@ -366,7 +368,7 @@ function ArticleView({ item }) {
                      border border-white/10 shadow-lg shadow-black/40"
         >
           <img
-            src={imagen_url}
+            src={heroImg}
             alt={titulo}
             className="w-full h-full object-cover opacity-80"
             onError={e => { e.target.src = PLACEHOLDER }}

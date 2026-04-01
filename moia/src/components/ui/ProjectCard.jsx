@@ -7,7 +7,8 @@ import { useDragScroll } from './HorizontalScroll'
 const PLACEHOLDER = '/images/placeholders/tool-default.webp'
 
 export function ProjectCard({ item }) {
-  const { titulo, descripcion, imagen_url, etiqueta_ia, tipo, url } = item
+  const { titulo, descripcion, imagen_url, imagen, etiqueta_ia, tipo, url } = item
+  const imgSrc = imagen_url || imagen || PLACEHOLDER
   const navigate = useNavigate()
   const { isDragging } = useDragScroll()
 
@@ -20,7 +21,7 @@ export function ProjectCard({ item }) {
     >
       <div className="h-56 w-full overflow-hidden bg-zinc-900">
         <img
-          src={imagen_url || PLACEHOLDER}
+          src={imgSrc}
           alt={titulo}
           className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-500"
           onError={(e) => { e.target.src = PLACEHOLDER }}

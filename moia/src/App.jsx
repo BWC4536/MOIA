@@ -30,7 +30,7 @@ function AppShell() {
   const location = useLocation()
 
   return (
-    <div className="flex min-h-screen bg-background">
+    <div className="flex min-h-screen bg-background overflow-x-hidden">
       <Sidebar />
       <div className="md:ml-64 flex-1 min-w-0 flex flex-col overflow-hidden pb-16 md:pb-0">
         <TopBar />
